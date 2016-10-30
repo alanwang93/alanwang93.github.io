@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Deep Learning," />
+  <meta name="keywords" content="zsh,iTerm," />
 
 
 
@@ -84,49 +84,22 @@
 
 
 
-<meta name="description" content="Udacity的Deep Learning课程的assignment 3要求用多层网络来完成noMINIST的分类问题。
-针对loss function出现NaN的情况，有以下几种可能有用的办法：
-
-减小Learning rate
-
-减小Batch size
-
-用Gradient clipping，防止一些值过大，或者变为0
-
-用tanh代替relu（不推荐）
-
-使用L2 regularizart">
+<meta name="description" content="有用的一些shell命令用Finder打开当前文件夹（指定文件夹）12open . # 打开当前文件夹oepn &amp;lt;dir&amp;gt; # 打开指定文件夹
+用指定（默认）程序打开目标文件因为Vim用的不熟练，有时候会需要用文本编辑器打开文件
+123open -a &amp;lt;editor&amp;gt; &amp;lt;file&amp;gt; # 用&amp;lt;editor&amp;gt;打开&amp;lt;file&amp;gt;open -e &amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="多层网络使用ReLu激活函数时Loss出现NaN的解决思路">
-<meta property="og:url" content="http://alanwang93.github.io/2016/10/28/Possible solutions to NaN in loss fonction when using multi-layer networks/index.html">
+<meta property="og:title" content="zsh和iTerm2配置和一些shell命令">
+<meta property="og:url" content="http://alanwang93.github.io/2016/10/27/zsh和iTerm2配置和一些shell命令/index.html">
 <meta property="og:site_name" content="WANG Yifan">
-<meta property="og:description" content="Udacity的Deep Learning课程的assignment 3要求用多层网络来完成noMINIST的分类问题。
-针对loss function出现NaN的情况，有以下几种可能有用的办法：
-
-减小Learning rate
-
-减小Batch size
-
-用Gradient clipping，防止一些值过大，或者变为0
-
-用tanh代替relu（不推荐）
-
-使用L2 regularizart">
-<meta property="og:updated_time" content="2016-10-29T09:36:36.000Z">
+<meta property="og:description" content="有用的一些shell命令用Finder打开当前文件夹（指定文件夹）12open . # 打开当前文件夹oepn &amp;lt;dir&amp;gt; # 打开指定文件夹
+用指定（默认）程序打开目标文件因为Vim用的不熟练，有时候会需要用文本编辑器打开文件
+123open -a &amp;lt;editor&amp;gt; &amp;lt;file&amp;gt; # 用&amp;lt;editor&amp;gt;打开&amp;lt;file&amp;gt;open -e &amp;">
+<meta property="og:updated_time" content="2016-10-29T15:23:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="多层网络使用ReLu激活函数时Loss出现NaN的解决思路">
-<meta name="twitter:description" content="Udacity的Deep Learning课程的assignment 3要求用多层网络来完成noMINIST的分类问题。
-针对loss function出现NaN的情况，有以下几种可能有用的办法：
-
-减小Learning rate
-
-减小Batch size
-
-用Gradient clipping，防止一些值过大，或者变为0
-
-用tanh代替relu（不推荐）
-
-使用L2 regularizart">
+<meta name="twitter:title" content="zsh和iTerm2配置和一些shell命令">
+<meta name="twitter:description" content="有用的一些shell命令用Finder打开当前文件夹（指定文件夹）12open . # 打开当前文件夹oepn &amp;lt;dir&amp;gt; # 打开指定文件夹
+用指定（默认）程序打开目标文件因为Vim用的不熟练，有时候会需要用文本编辑器打开文件
+123open -a &amp;lt;editor&amp;gt; &amp;lt;file&amp;gt; # 用&amp;lt;editor&amp;gt;打开&amp;lt;file&amp;gt;open -e &amp;">
 
 
 
@@ -147,10 +120,10 @@
 
 
 
-  <link rel="canonical" href="http://alanwang93.github.io/2016/10/28/Possible solutions to NaN in loss fonction when using multi-layer networks/"/>
+  <link rel="canonical" href="http://alanwang93.github.io/2016/10/27/zsh和iTerm2配置和一些shell命令/"/>
 
 
-  <title> 多层网络使用ReLu激活函数时Loss出现NaN的解决思路 | WANG Yifan </title>
+  <title> zsh和iTerm2配置和一些shell命令 | WANG Yifan </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -211,10 +184,10 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
             
-            归档
+            分类
           </a>
         </li>
       
@@ -227,10 +200,18 @@
         </li>
       
         
-        <li class="menu-item menu-item-schedule">
-          <a href="/schedule" rel="section">
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
             
-            日程
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
           </a>
         </li>
       
@@ -272,7 +253,7 @@
             
             
               
-                多层网络使用ReLu激活函数时Loss出现NaN的解决思路
+                zsh和iTerm2配置和一些shell命令
               
             
           </h1>
@@ -284,11 +265,30 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-28T21:57:08+02:00" content="2016-10-28">
-              2016-10-28
+            <time itemprop="dateCreated" datetime="2016-10-27T20:53:39+02:00" content="2016-10-27">
+              2016-10-27
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Others/" itemprop="url" rel="index">
+                    <span itemprop="name">Others</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -312,26 +312,12 @@
       
 
       
-        <p>Udacity的Deep Learning课程的assignment 3要求用多层网络来完成noMINIST的分类问题。</p>
-<p>针对loss function出现NaN的情况，有以下几种可能有用的办法：</p>
-<ul>
-<li><p>减小Learning rate</p>
-</li>
-<li><p>减小Batch size</p>
-</li>
-<li><p>用Gradient clipping，防止一些值过大，或者变为0</p>
-</li>
-<li><p>用tanh代替relu（不推荐）</p>
-</li>
-<li><p>使用L2 regularizartion</p>
-</li>
-<li><p>如果使用truncated_normalization，将stddev（默认为1）设置为一个较小的数</p>
-</li>
-<li><p>换一个loss function或者换一个optimizer</p>
-<p>​</p>
-</li>
-</ul>
-
+        <h2 id="有用的一些shell命令"><a href="#有用的一些shell命令" class="headerlink" title="有用的一些shell命令"></a>有用的一些shell命令</h2><h5 id="用Finder打开当前文件夹（指定文件夹）"><a href="#用Finder打开当前文件夹（指定文件夹）" class="headerlink" title="用Finder打开当前文件夹（指定文件夹）"></a>用Finder打开当前文件夹（指定文件夹）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">open . # 打开当前文件夹</div><div class="line">oepn &lt;dir&gt; # 打开指定文件夹</div></pre></td></tr></table></figure>
+<h5 id="用指定（默认）程序打开目标文件"><a href="#用指定（默认）程序打开目标文件" class="headerlink" title="用指定（默认）程序打开目标文件"></a>用指定（默认）程序打开目标文件</h5><p>因为Vim用的不熟练，有时候会需要用文本编辑器打开文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">open -a &lt;editor&gt; &lt;file&gt; # 用&lt;editor&gt;打开&lt;file&gt;</div><div class="line">open -e &lt;file&gt; # 用文本编辑器打开文件</div><div class="line">open -t &lt;file&gt; # 用系统默认程序打开文件</div></pre></td></tr></table></figure>
+<h2 id="zsh和iTerm2配置"><a href="#zsh和iTerm2配置" class="headerlink" title="zsh和iTerm2配置"></a>zsh和iTerm2配置</h2><h5 id="不同Tab不共享命令历史"><a href="#不同Tab不共享命令历史" class="headerlink" title="不同Tab不共享命令历史"></a>不同Tab不共享命令历史</h5><p>默认情况下iTerm2会在不同tab间共享命令历史，要取消共享，在<code>.zshrc</code>中加入以下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">unsetopt inc_append_history</div><div class="line">unsetopt share_history</div></pre></td></tr></table></figure>
+<h5 id="用Alias自定义命令"><a href="#用Alias自定义命令" class="headerlink" title="用Alias自定义命令"></a>用Alias自定义命令</h5>
       
     </div>
 
@@ -353,7 +339,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Deep-Learning/" rel="tag">#Deep Learning</a>
+            <a href="/tags/zsh/" rel="tag">#zsh</a>
+          
+            <a href="/tags/iTerm/" rel="tag">#iTerm</a>
           
         </div>
       
@@ -362,13 +350,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/27/Configuration of zsh and iTerm2 & some helpful shell commands/" rel="next" title="zsh和iTerm2配置和一些shell命令">
-                <i class="fa fa-chevron-left"></i> zsh和iTerm2配置和一些shell命令
-              </a>
-            
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/28/多层网络使用ReLu激活函数时Loss出现NaN的解决思路/" rel="prev" title="多层网络使用ReLu激活函数时Loss出现NaN的解决思路">
+                多层网络使用ReLu激活函数时Loss出现NaN的解决思路 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -442,11 +430,18 @@
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -475,7 +470,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#有用的一些shell命令"><span class="nav-number">1.</span> <span class="nav-text">有用的一些shell命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#用Finder打开当前文件夹（指定文件夹）"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">用Finder打开当前文件夹（指定文件夹）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用指定（默认）程序打开目标文件"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">用指定（默认）程序打开目标文件</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zsh和iTerm2配置"><span class="nav-number">2.</span> <span class="nav-text">zsh和iTerm2配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#不同Tab不共享命令历史"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">不同Tab不共享命令历史</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用Alias自定义命令"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">用Alias自定义命令</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
