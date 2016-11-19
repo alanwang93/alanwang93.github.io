@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Deep Learning,ReLu," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,49 +84,12 @@
 
 
 
-<meta name="description" content="Udacity的Deep Learning课程的assignment 3要求用多层网络来完成noMINIST的分类问题。
-针对loss function出现NaN的情况，有以下几种可能有用的办法：
-
-减小Learning rate
-
-减小Batch size
-
-用Gradient clipping，防止一些值过大，或者变为0
-
-用tanh代替relu（不推荐）
-
-使用L2 regularizart">
-<meta property="og:type" content="article">
-<meta property="og:title" content="多层网络使用ReLu激活函数时Loss出现NaN的解决思路">
-<meta property="og:url" content="http://alanwang93.github.io/2016/10/28/多层网络使用ReLu激活函数时Loss出现NaN的解决思路/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WANG Yifan">
+<meta property="og:url" content="http://alanwang93.github.io/tags/NLP/index.html">
 <meta property="og:site_name" content="WANG Yifan">
-<meta property="og:description" content="Udacity的Deep Learning课程的assignment 3要求用多层网络来完成noMINIST的分类问题。
-针对loss function出现NaN的情况，有以下几种可能有用的办法：
-
-减小Learning rate
-
-减小Batch size
-
-用Gradient clipping，防止一些值过大，或者变为0
-
-用tanh代替relu（不推荐）
-
-使用L2 regularizart">
-<meta property="og:updated_time" content="2016-10-29T15:21:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="多层网络使用ReLu激活函数时Loss出现NaN的解决思路">
-<meta name="twitter:description" content="Udacity的Deep Learning课程的assignment 3要求用多层网络来完成noMINIST的分类问题。
-针对loss function出现NaN的情况，有以下几种可能有用的办法：
-
-减小Learning rate
-
-减小Batch size
-
-用Gradient clipping，防止一些值过大，或者变为0
-
-用tanh代替relu（不推荐）
-
-使用L2 regularizart">
+<meta name="twitter:title" content="WANG Yifan">
 
 
 
@@ -147,10 +110,10 @@
 
 
 
-  <link rel="canonical" href="http://alanwang93.github.io/2016/10/28/多层网络使用ReLu激活函数时Loss出现NaN的解决思路/"/>
+  <link rel="canonical" href="http://alanwang93.github.io/tags/NLP/"/>
 
 
-  <title> 多层网络使用ReLu激活函数时Loss出现NaN的解决思路 | WANG Yifan </title>
+  <title> 标签: NLP | WANG Yifan </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -171,7 +134,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
@@ -259,165 +222,46 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                多层网络使用ReLu激活函数时Loss出现NaN的解决思路
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-28T21:57:08+02:00" content="2016-10-28">
-              2016-10-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Deep Learning</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>Udacity的Deep Learning课程的assignment 3要求用多层网络来完成noMINIST的分类问题。</p>
-<p>针对loss function出现NaN的情况，有以下几种可能有用的办法：</p>
-<ul>
-<li><p>减小Learning rate</p>
-</li>
-<li><p>减小Batch size</p>
-</li>
-<li><p>用Gradient clipping，防止一些值过大，或者变为0</p>
-</li>
-<li><p>用tanh代替relu（不推荐）</p>
-</li>
-<li><p>使用L2 regularizartion</p>
-</li>
-<li><p>如果使用truncated_normalization，将stddev（默认为1）设置为一个较小的数</p>
-</li>
-<li><p>换一个loss function或者换一个optimizer</p>
-<p>​</p>
-</li>
-</ul>
-
-      
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        NLP
+        <small>标签</small>
+      </h2>
     </div>
 
-    <div>
+    
       
+
+  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
         
-
-      
-    </div>
-
-    <div>
-      
+            <a class="post-title-link" href="/2016/11/19/CS224d-notes-1-2-3/" itemprop="url">
+              
+                <span itemprop="name">CS224d notes (1,2,3)</span>
+              
+            </a>
         
+      </h1>
 
-      
-    </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-11-19T21:07:26+01:00"
+              content="2016-11-19" >
+          11-19
+        </time>
+      </div>
 
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Deep-Learning/" rel="tag">#Deep Learning</a>
-          
-            <a href="/tags/ReLu/" rel="tag">#ReLu</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/10/27/zsh和iTerm2配置和一些shell命令/" rel="next" title="zsh和iTerm2配置和一些shell命令">
-                <i class="fa fa-chevron-left"></i> zsh和iTerm2配置和一些shell命令
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/30/Python-notes/" rel="prev" title="Python notes">
-                Python notes <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
+    
   </div>
+
+  
 
 
           </div>
@@ -425,10 +269,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -448,17 +288,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -508,17 +339,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <p class="post-toc-empty">此文章未包含目录</p>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -615,10 +435,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
-
-
 
   
 

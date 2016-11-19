@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Deep Learning,ReLu," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,49 +84,31 @@
 
 
 
-<meta name="description" content="Udacity的Deep Learning课程的assignment 3要求用多层网络来完成noMINIST的分类问题。
-针对loss function出现NaN的情况，有以下几种可能有用的办法：
+<meta name="description" content="Lecture 4 :Word Window Classification and Neural Networks
+Cross Entropy loss function for softmax:
 
-减小Learning rate
 
-减小Batch size
-
-用Gradient clipping，防止一些值过大，或者变为0
-
-用tanh代替relu（不推荐）
-
-使用L2 regularizart">
+J(\theta) = \frac{1}{N}\sum_{i=1}^N - log(P(y_i|x)) \\
+\text{where } \widehat y_{y_i} = softmax(f_{">
 <meta property="og:type" content="article">
-<meta property="og:title" content="多层网络使用ReLu激活函数时Loss出现NaN的解决思路">
-<meta property="og:url" content="http://alanwang93.github.io/2016/10/28/多层网络使用ReLu激活函数时Loss出现NaN的解决思路/index.html">
+<meta property="og:title" content="CS224d notes (4)">
+<meta property="og:url" content="http://alanwang93.github.io/2016/11/19/CS224d-notes-4/index.html">
 <meta property="og:site_name" content="WANG Yifan">
-<meta property="og:description" content="Udacity的Deep Learning课程的assignment 3要求用多层网络来完成noMINIST的分类问题。
-针对loss function出现NaN的情况，有以下几种可能有用的办法：
+<meta property="og:description" content="Lecture 4 :Word Window Classification and Neural Networks
+Cross Entropy loss function for softmax:
 
-减小Learning rate
 
-减小Batch size
-
-用Gradient clipping，防止一些值过大，或者变为0
-
-用tanh代替relu（不推荐）
-
-使用L2 regularizart">
-<meta property="og:updated_time" content="2016-10-29T15:21:08.000Z">
+J(\theta) = \frac{1}{N}\sum_{i=1}^N - log(P(y_i|x)) \\
+\text{where } \widehat y_{y_i} = softmax(f_{">
+<meta property="og:updated_time" content="2016-11-19T20:58:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="多层网络使用ReLu激活函数时Loss出现NaN的解决思路">
-<meta name="twitter:description" content="Udacity的Deep Learning课程的assignment 3要求用多层网络来完成noMINIST的分类问题。
-针对loss function出现NaN的情况，有以下几种可能有用的办法：
+<meta name="twitter:title" content="CS224d notes (4)">
+<meta name="twitter:description" content="Lecture 4 :Word Window Classification and Neural Networks
+Cross Entropy loss function for softmax:
 
-减小Learning rate
 
-减小Batch size
-
-用Gradient clipping，防止一些值过大，或者变为0
-
-用tanh代替relu（不推荐）
-
-使用L2 regularizart">
+J(\theta) = \frac{1}{N}\sum_{i=1}^N - log(P(y_i|x)) \\
+\text{where } \widehat y_{y_i} = softmax(f_{">
 
 
 
@@ -147,10 +129,10 @@
 
 
 
-  <link rel="canonical" href="http://alanwang93.github.io/2016/10/28/多层网络使用ReLu激活函数时Loss出现NaN的解决思路/"/>
+  <link rel="canonical" href="http://alanwang93.github.io/2016/11/19/CS224d-notes-4/"/>
 
 
-  <title> 多层网络使用ReLu激活函数时Loss出现NaN的解决思路 | WANG Yifan </title>
+  <title> CS224d notes (4) | WANG Yifan </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -280,7 +262,7 @@
             
             
               
-                多层网络使用ReLu激活函数时Loss出现NaN的解决思路
+                CS224d notes (4)
               
             
           </h1>
@@ -292,30 +274,11 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-28T21:57:08+02:00" content="2016-10-28">
-              2016-10-28
+            <time itemprop="dateCreated" datetime="2016-11-19T21:57:15+01:00" content="2016-11-19">
+              2016-11-19
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Deep Learning</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
@@ -339,24 +302,113 @@
       
 
       
-        <p>Udacity的Deep Learning课程的assignment 3要求用多层网络来完成noMINIST的分类问题。</p>
-<p>针对loss function出现NaN的情况，有以下几种可能有用的办法：</p>
+        <h2 id="Lecture-4-Word-Window-Classification-and-Neural-Networks"><a href="#Lecture-4-Word-Window-Classification-and-Neural-Networks" class="headerlink" title="Lecture 4 :Word Window Classification and Neural Networks"></a>Lecture 4 :Word Window Classification and Neural Networks</h2><ul>
+<li><p>Cross Entropy loss function for softmax:</p>
+</li>
+<li><script type="math/tex; mode=display">
+J(\theta) = \frac{1}{N}\sum_{i=1}^N - log(P(y_i|x)) \\
+\text{where } \widehat y_{y_i} = softmax(f_{y_i}) =  P(y_i|x) = \frac{exp(W_{y_i}x)}{\sum_{c=1}^C exp(W_cx)} \\
+\text{and $W_y$ is a row(?) of $W$ that corresponds to $y$}</script></li>
+<li><p>In most cases, the square error <strong>will not</strong> give good results</p>
+</li>
+<li><p>General ML parameters:</p>
+</li>
+<li><script type="math/tex; mode=display">
+\theta = \begin{matrix} 
+\left[
+  \begin{array}{c}
+  W_{.1} \\
+  \vdots \\
+  W_{.d}
+ \end{array}
+\right]
+\end{matrix} \in \mathbb{R}^{Cd} \text{ where $C$ is the number of classes and $d$ is the dimension of input vectors}</script></li>
+<li><p>In Deep Learning, we learn both W and word vectors x (update some pre-trained word vectors)</p>
+</li>
+<li><p>​</p>
+</li>
+<li><script type="math/tex; mode=display">
+\theta = \begin{matrix} 
+\left[
+  \begin{array}{c}
+  W_{.1} \\
+  \vdots \\
+  W_{.d} \\
+  W_{x_1} \\
+  \vdots \\
+  W_{x_V}
+ \end{array}
+\right]
+\end{matrix} \in \mathbb{R}^{Cd + Vd}\\
+\text{ where $C$ is the number of classes, V is the number of tokens,}\\ \text{ $d$ is the dimension of input vectors}</script></li>
+<li><p>If the data set is very large, it might be helpful to update the vectors to the task, otherwise don’t do it.</p>
+</li>
+</ul>
+<h3 id="Word-vector-notation"><a href="#Word-vector-notation" class="headerlink" title="Word vector notation"></a>Word vector notation</h3><ul>
+<li><p>Lookup table: word vector matrix L</p>
+</li>
+<li><script type="math/tex; mode=display">
+L = [x_1, x_2 \ldots x_{|V|}] ~~\} ~d \\
+\text{Conceptually, to get the word vector(we don't do it): } x_i = Le_i</script></li>
+</ul>
+<h3 id="Window-classification-NER"><a href="#Window-classification-NER" class="headerlink" title="Window classification (NER)"></a>Window classification (NER)</h3><p>In the example, we use a window of 5 words to predict the class of the center word. </p>
+<script type="math/tex; mode=display">
+\text{Let x be } x = \begin{matrix} 
+\left[
+  \begin{array}{c}
+  x_1 \\
+  x_2 \\
+  x_3 \\
+  x_4 \\
+  x_5 \\
+ \end{array}
+\right]
+\end{matrix} \in \mathbb{R}^{5d} \text{ where $d$ is the dimension of input vectors} \\
+f = f(x) = Wx \in \mathbb{R}^C \\
+W \in \mathbb{R}^{C\times 5d}</script><p>The loss function is cross entropy error, and use softmax to predict. </p>
 <ul>
-<li><p>减小Learning rate</p>
-</li>
-<li><p>减小Batch size</p>
-</li>
-<li><p>用Gradient clipping，防止一些值过大，或者变为0</p>
-</li>
-<li><p>用tanh代替relu（不推荐）</p>
-</li>
-<li><p>使用L2 regularizartion</p>
-</li>
-<li><p>如果使用truncated_normalization，将stddev（默认为1）设置为一个较小的数</p>
-</li>
-<li><p>换一个loss function或者换一个optimizer</p>
+<li><p>Update the concatenated word vectors</p>
 <p>​</p>
+<script type="math/tex; mode=display">
+\frac{\partial}{\partial x} -log(softmax(f_y(x))) = \sum_{c=1}^C - \frac{\partial log(softmax(f_y(x))}{\partial f_c(x)} \frac{\partial f_c(x)}{\partial x}</script></li>
+<li><p>Write it in vector as a gradient</p>
 </li>
+<li><script type="math/tex; mode=display">
+  \frac{\partial}{\partial f} -log(softmax(f_y(x))) = 
+  \begin{matrix}
+  \left[
+    \begin{array}{c}
+  \widehat y_1 \\
+  \vdots \\
+  \widehat y_y - 1 \\
+  \vdots \\
+  \widehat y_C
+  \end{array}
+  \right]  = 
+  \end{matrix}
+  [\widehat y - t] = \delta \in \mathbb{R}^C</script></li>
+<li><p>So we have a vectoriel version, notice that x is vecotr of the window</p>
+</li>
+<li><script type="math/tex; mode=display">
+  \nabla_xJ =  \sum_{c=1}^C - \frac{\partial log(softmax(f_y(x))}{\partial f_c(x)} \frac{\partial f_c(x)}{\partial x} = \sum_{c=1}^C \delta_cW_c^T = W^T\delta \in R^{5d} \\
+  \text{where } \delta_c = \delta_{window} \in R, ~ W_c \in R^{1\times 5d}
+  \\ \delta_{window} =\begin{matrix}
+  \left[
+    \begin{array}{c}
+  \nabla_{x_1} \\
+  \nabla_{x_2} \\
+  \nabla_{x_3} \\
+  \nabla_{x_4} \\
+  \nabla_{x_5} 
+  \end{array}
+  \right] 
+  \end{matrix}</script></li>
+<li><p>Add the gradient to the lookup table</p>
+</li>
+</ul>
+<h5 id="Problems-of-Softmax"><a href="#Problems-of-Softmax" class="headerlink" title="Problems of Softmax"></a>Problems of Softmax</h5><ul>
+<li>only give us a linear decision boundary</li>
+<li>with little data can be a good regularizer but with much data is very limiting.</li>
 </ul>
 
       
@@ -378,30 +430,18 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Deep-Learning/" rel="tag">#Deep Learning</a>
-          
-            <a href="/tags/ReLu/" rel="tag">#ReLu</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/27/zsh和iTerm2配置和一些shell命令/" rel="next" title="zsh和iTerm2配置和一些shell命令">
-                <i class="fa fa-chevron-left"></i> zsh和iTerm2配置和一些shell命令
+              <a href="/2016/11/19/CS224d-notes-1-2-3/" rel="next" title="CS224d notes (1,2,3)">
+                <i class="fa fa-chevron-left"></i> CS224d notes (1,2,3)
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/30/Python-notes/" rel="prev" title="Python notes">
-                Python notes <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -515,7 +555,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lecture-4-Word-Window-Classification-and-Neural-Networks"><span class="nav-number">1.</span> <span class="nav-text">Lecture 4 :Word Window Classification and Neural Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Word-vector-notation"><span class="nav-number">1.1.</span> <span class="nav-text">Word vector notation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Window-classification-NER"><span class="nav-number">1.2.</span> <span class="nav-text">Window classification (NER)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Problems-of-Softmax"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">Problems of Softmax</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>

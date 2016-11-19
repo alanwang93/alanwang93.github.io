@@ -246,8 +246,209 @@
             
               
                 
+                <a class="post-title-link" href="/2016/11/19/CS224d-notes-4/" itemprop="url">
+                  CS224d notes (4)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-19T21:57:15+01:00" content="2016-11-19">
+              2016-11-19
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Lecture-4-Word-Window-Classification-and-Neural-Networks"><a href="#Lecture-4-Word-Window-Classification-and-Neural-Networks" class="headerlink" title="Lecture 4 :Word Window Classification and Neural Networks"></a>Lecture 4 :Word Window Classification and Neural Networks</h2><ul>
+<li><p>Cross Entropy loss function for softmax:</p>
+</li>
+<li><script type="math/tex; mode=display">
+J(\theta) = \frac{1}{N}\sum_{i=1}^N - log(P(y_i|x)) \\
+\text{where } \widehat y_{y_i} = softmax(f_{y_i}) =  P(y_i|x) = \frac{exp(W_{y_i}x)}{\sum_{c=1}^C exp(W_cx)} \\
+\text{and $W_y$ is a row(?) of $W$ that corresponds to $y$}</script></li>
+<li><p>In most cases, the square error <strong>will not</strong> give good results</p>
+</li>
+<li><p>General ML parameters:</p>
+</li>
+<li><script type="math/tex; mode=display">
+\theta = \begin{matrix} 
+\left[
+  \begin{array}{c}
+  W_{.1} \\
+  \vdots \\
+  W_{.d}
+ \end{array}
+\right]
+\end{matrix} \in \mathbb{R}^{Cd} \text{ where $C$ is the number of classes and $d$ is the dimension of input vectors}</script></li>
+<li><p>In Deep Learning, we learn both W and word vectors x (update some pre-trained word vectors)</p>
+</li>
+<li><p>​</p>
+</li>
+<li><script type="math/tex; mode=display">
+\theta = \begin{matrix} 
+\left[
+  \begin{array}{c}
+  W_{.1} \\
+  \vdots \\
+  W_{.d} \\
+  W_{x_1} \\
+  \vdots \\
+  W_{x_V}
+ \end{array}
+\right]
+\end{matrix} \in \mathbb{R}^{Cd + Vd}\\
+\text{ where $C$ is the number of classes, V is the number of tokens,}\\ \text{ $d$ is the dimension of input vectors}</script></li>
+<li><p>If the data set is very large, it might be helpful to update the vectors to the task, otherwise don’t do it.</p>
+</li>
+</ul>
+<h3 id="Word-vector-notation"><a href="#Word-vector-notation" class="headerlink" title="Word vector notation"></a>Word vector notation</h3><ul>
+<li><p>Lookup table: word vector matrix L</p>
+</li>
+<li><script type="math/tex; mode=display">
+L = [x_1, x_2 \ldots x_{|V|}] ~~\} ~d \\
+\text{Conceptually, to get the word vector(we don't do it): } x_i = Le_i</script></li>
+</ul>
+<h3 id="Window-classification-NER"><a href="#Window-classification-NER" class="headerlink" title="Window classification (NER)"></a>Window classification (NER)</h3><p>In the example, we use a window of 5 words to predict the class of the center word. </p>
+<script type="math/tex; mode=display">
+\text{Let x be } x = \begin{matrix} 
+\left[
+  \begin{array}{c}
+  x_1 \\
+  x_2 \\
+  x_3 \\
+  x_4 \\
+  x_5 \\
+ \end{array}
+\right]
+\end{matrix} \in \mathbb{R}^{5d} \text{ where $d$ is the dimension of input vectors} \\
+f = f(x) = Wx \in \mathbb{R}^C \\
+W \in \mathbb{R}^{C\times 5d}</script><p>The loss function is cross entropy error, and use softmax to predict. </p>
+<ul>
+<li><p>Update the concatenated word vectors</p>
+<p>​</p>
+<script type="math/tex; mode=display">
+\frac{\partial}{\partial x} -log(softmax(f_y(x))) = \sum_{c=1}^C - \frac{\partial log(softmax(f_y(x))}{\partial f_c(x)} \frac{\partial f_c(x)}{\partial x}</script></li>
+<li><p>Write it in vector as a gradient</p>
+</li>
+<li><script type="math/tex; mode=display">
+  \frac{\partial}{\partial f} -log(softmax(f_y(x))) = 
+  \begin{matrix}
+  \left[
+    \begin{array}{c}
+  \widehat y_1 \\
+  \vdots \\
+  \widehat y_y - 1 \\
+  \vdots \\
+  \widehat y_C
+  \end{array}
+  \right]  = 
+  \end{matrix}
+  [\widehat y - t] = \delta \in \mathbb{R}^C</script></li>
+<li><p>So we have a vectoriel version, notice that x is vecotr of the window</p>
+</li>
+<li><script type="math/tex; mode=display">
+  \nabla_xJ =  \sum_{c=1}^C - \frac{\partial log(softmax(f_y(x))}{\partial f_c(x)} \frac{\partial f_c(x)}{\partial x} = \sum_{c=1}^C \delta_cW_c^T = W^T\delta \in R^{5d} \\
+  \text{where } \delta_c = \delta_{window} \in R, ~ W_c \in R^{1\times 5d}
+  \\ \delta_{window} =\begin{matrix}
+  \left[
+    \begin{array}{c}
+  \nabla_{x_1} \\
+  \nabla_{x_2} \\
+  \nabla_{x_3} \\
+  \nabla_{x_4} \\
+  \nabla_{x_5} 
+  \end{array}
+  \right] 
+  \end{matrix}</script></li>
+<li><p>Add the gradient to the lookup table</p>
+</li>
+</ul>
+<h5 id="Problems-of-Softmax"><a href="#Problems-of-Softmax" class="headerlink" title="Problems of Softmax"></a>Problems of Softmax</h5><ul>
+<li>only give us a linear decision boundary</li>
+<li>with little data can be a good regularizer but with much data is very limiting.</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/11/19/CS224d-notes-1-2-3/" itemprop="url">
-                  CS224d notes - 1,2,3
+                  CS224d notes (1,2,3)
                 </a>
               
             
@@ -276,30 +477,6 @@
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                   <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
                     <span itemprop="name">Deep Learning</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Deep-Learning/Open-Course/" itemprop="url" rel="index">
-                    <span itemprop="name">Open Course</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Deep-Learning/Open-Course/NLP/" itemprop="url" rel="index">
-                    <span itemprop="name">NLP</span>
                   </a>
                 </span>
 
@@ -336,34 +513,41 @@
             <h2 id="Lecture-2"><a href="#Lecture-2" class="headerlink" title="Lecture 2"></a>Lecture 2</h2><h3 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h3><ul>
 <li><p>Objective function:</p>
 </li>
-<li><p>$$<br>J(\theta) = \frac{1}{T}\sum<em>{t=1}^T\sum</em>{-m\leq j \leq m,j\neq 0}log(p(w_{t+j}|w_t))<br>$$</p>
-</li>
-</ul>
-<ul>
+<li><script type="math/tex; mode=display">
+J(\theta) = \frac{1}{T}\sum_{t=1}^T\sum_{-m\leq j \leq m,j\neq 0}log(p(w_{t+j}|w_t))</script></li>
 <li><p>With probabilities defined as:</p>
 </li>
-<li><p>$$<br>p(o|c) = \frac{exp(u^T_o v<em>c)}{\sum</em>{w=1}^W exp(u^T_w v_c)} \<br>\text{where } v_c \text{ as input vector for center word and } u \text{ as_o output vector (for tokens in the window), }\ W \text{ is the number of tokens.}<br>$$</p>
-</li>
+<li><script type="math/tex; mode=display">
+p(o|c) = \frac{exp(u^T_o v_c)}{\sum_{w=1}^W exp(u^T_w v_c)} \\
+\text{where } v_c \text{ as input vector for center word and } u \text{ as_o output vector (for tokens in the window), }\\ W \text{ is the number of tokens.}</script></li>
 <li><p>Two vectors (as input and output) for each word, in the end average them or concatenate them to get the word vector</p>
 </li>
 <li><p>Derivative</p>
 <ul>
-<li>​<br>$$<br>\frac{\partial x^Ta}{\partial x} = \frac{\partial a^Tx}{\partial x} = a \<br>x^Ta = \sum_i x_ia_i \ \text{, so we have } \frac{\partial x^Ta}{\partial x_i} =   a_i<br>$$</li>
+<li>​<script type="math/tex; mode=display">
+\frac{\partial x^Ta}{\partial x} = \frac{\partial a^Tx}{\partial x} = a \\
+x^Ta = \sum_i x_ia_i \ \text{, so we have } \frac{\partial x^Ta}{\partial x_i} =   a_i</script></li>
 </ul>
 </li>
 </ul>
 <h2 id="Lecture-3"><a href="#Lecture-3" class="headerlink" title="Lecture 3"></a>Lecture 3</h2><h3 id="Word2Vec-1"><a href="#Word2Vec-1" class="headerlink" title="Word2Vec"></a>Word2Vec</h3><ul>
 <li><p>Parameters:</p>
 </li>
-<li><p>$$<br>\theta =<br>\begin{matrix}       %开始数学环境<br>\left[                 %左括号<br>  \begin{array}{c}   %该矩阵一共3列，每一列都居中放置</p>
-<pre><code>v_1\\  %第一行元素
-\vdots \\
-v_V \\
-u_1 \\
-\vdots \\
-u_V
-</code></pre><p>  \end{array}<br>\right]                 %右括号<br>\end{matrix}<br>\in \mathbb{R}^{2dV}   ~~~~\text{ where } V \text{ is the number of tokens and  } d \text{ the demension of word vectors.}<br>$$</p>
-</li>
+<li><script type="math/tex; mode=display">
+\theta = 
+\begin{matrix}       %开始数学环境
+\left[                 %左括号
+  \begin{array}{c}   %该矩阵一共3列，每一列都居中放置
+    v_1\\  %第一行元素
+    \vdots \\
+    v_V \\
+    u_1 \\
+    \vdots \\
+    u_V
+  \end{array}
+\right]                 %右括号
+\end{matrix}
+\in \mathbb{R}^{2dV}   ~~~~\text{ where } V \text{ is the number of tokens and  } d \text{ the demension of word vectors.}</script></li>
 <li><p>Optimization:</p>
 <ul>
 <li>Gradient Descente</li>
@@ -392,12 +576,14 @@ u_V
 </li>
 <li><p>Objective function: (negative sampling: randomly pick k tokens that don’t appear in the window)</p>
 </li>
-<li><p>$$<br>J(\theta) = \frac{1}{T}\sum_{t=1}^T J_t(\theta) \<br>\text{with } J_t(\theta) = log~ \sigma(u_o^Tv<em>c) + \sum</em>{i=1}^k \mathbb{E}_{j \sim P(\omega)}[log~\sigma(u^T_jv_c)] \<br>\text{and } \sigma(x) = \frac{1}{1+e^{-x}}<br>$$</p>
-</li>
+<li><script type="math/tex; mode=display">
+J(\theta) = \frac{1}{T}\sum_{t=1}^T J_t(\theta) \\
+\text{with } J_t(\theta) = log~ \sigma(u_o^Tv_c) + \sum_{i=1}^k \mathbb{E}_{j \sim P(\omega)}[log~\sigma(u^T_jv_c)] \\
+\text{and } \sigma(x) = \frac{1}{1+e^{-x}}</script></li>
 <li><p>The indexes follow the unigram distribution, and the power lowers the frequency of frequent tokens</p>
 </li>
-<li><p>$$<br>j \sim U(w)^{\frac{3}{4}}<br>$$</p>
-</li>
+<li><script type="math/tex; mode=display">
+j \sim U(w)^{\frac{3}{4}}</script></li>
 </ul>
 <h5 id="CBOW-model-Continous-Bag-Of-Words"><a href="#CBOW-model-Continous-Bag-Of-Words" class="headerlink" title="CBOW model (Continous Bag Of Words)"></a>CBOW model (Continous Bag Of Words)</h5><ul>
 <li>Main idea: predict the center word with the sum of surrounding word vectors</li>
@@ -408,8 +594,14 @@ u_V
 </li>
 <li><p>Obective function</p>
 </li>
-<li><p>$$<br>J(\theta) = \frac{1}{2} \sum<em>{i,j=1}^W f(P</em>{ij})(u^T_iv<em>j - logP</em>{ij})^2 \<br>\text{where } f(x) \text{ is like: } f = \left{<br>\begin{aligned}<br> &amp;x  \text{ if } ~ x &lt;0.5\<br> &amp;1 \text{ otherwise} \<br>\end{aligned}<br>\right.<br>$$</p>
-</li>
+<li><script type="math/tex; mode=display">
+J(\theta) = \frac{1}{2} \sum_{i,j=1}^W f(P_{ij})(u^T_iv_j - logP_{ij})^2 \\
+\text{where } f(x) \text{ is like: } f = \left\{  
+\begin{aligned}
+ &x  \text{ if } ~ x <0.5\\ 
+ &1 \text{ otherwise} \\
+\end{aligned}
+\right.</script></li>
 </ul>
 <h4 id="Evaluation-of-word-vector"><a href="#Evaluation-of-word-vector" class="headerlink" title="Evaluation of word vector"></a>Evaluation of word vector</h4><ul>
 <li><p>Intrinsic </p>
@@ -418,8 +610,9 @@ u_V
 <ul>
 <li><p><a href="http://code.google.com/p/word2vec/source/browse/trunk/questions-words.txt" target="_blank" rel="external">http://code.google.com/p/word2vec/source/browse/trunk/questions-words.txt</a></p>
 </li>
-<li><p>a:b :: c:d?<br>$$<br>d = arg\max_i \frac{(x_b-x_a+x_c)^Tx_i}{||x_b-x_a+x_c||}<br>$$</p>
-</li>
+<li><p>a:b :: c:d? </p>
+<script type="math/tex; mode=display">
+d = arg\max_i \frac{(x_b-x_a+x_c)^Tx_i}{||x_b-x_a+x_c||}</script></li>
 <li><p>What if the relation is not linear?</p>
 </li>
 </ul>
@@ -864,7 +1057,7 @@ u_V
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -872,7 +1065,7 @@ u_V
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -881,7 +1074,7 @@ u_V
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1020,6 +1213,26 @@ u_V
   
 
   
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
   
 
