@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="zsh,iTerm," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,22 +84,22 @@
 
 
 
-<meta name="description" content="有用的一些shell命令用Finder打开当前文件夹（指定文件夹）12open . # 打开当前文件夹oepn &amp;lt;dir&amp;gt; # 打开指定文件夹
-用指定（默认）程序打开目标文件因为Vim用的不熟练，有时候会需要用文本编辑器打开文件
-123open -a &amp;lt;editor&amp;gt; &amp;lt;file&amp;gt; # 用&amp;lt;editor&amp;gt;打开&amp;lt;file&amp;gt;open -e &amp;">
+<meta name="description" content="对Corpus (List of tokens)快速建立词频表
+
+1234collections.Counter(words).most_common(vocabulary_size - 1)# words: list of tokens# collections.Counter(words): Counter(&amp;#123;token: frequency ...&amp;#125;)# Counter">
 <meta property="og:type" content="article">
-<meta property="og:title" content="zsh和iTerm2配置和一些shell命令">
-<meta property="og:url" content="http://alanwang93.github.io/2016/10/27/zsh和iTerm2配置和一些shell命令/index.html">
+<meta property="og:title" content="Python notes">
+<meta property="og:url" content="http://alanwang93.github.io/2016/10/30/Python-notes/index.html">
 <meta property="og:site_name" content="WANG Yifan">
-<meta property="og:description" content="有用的一些shell命令用Finder打开当前文件夹（指定文件夹）12open . # 打开当前文件夹oepn &amp;lt;dir&amp;gt; # 打开指定文件夹
-用指定（默认）程序打开目标文件因为Vim用的不熟练，有时候会需要用文本编辑器打开文件
-123open -a &amp;lt;editor&amp;gt; &amp;lt;file&amp;gt; # 用&amp;lt;editor&amp;gt;打开&amp;lt;file&amp;gt;open -e &amp;">
-<meta property="og:updated_time" content="2016-10-29T15:23:00.000Z">
+<meta property="og:description" content="对Corpus (List of tokens)快速建立词频表
+
+1234collections.Counter(words).most_common(vocabulary_size - 1)# words: list of tokens# collections.Counter(words): Counter(&amp;#123;token: frequency ...&amp;#125;)# Counter">
+<meta property="og:updated_time" content="2016-10-30T21:37:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zsh和iTerm2配置和一些shell命令">
-<meta name="twitter:description" content="有用的一些shell命令用Finder打开当前文件夹（指定文件夹）12open . # 打开当前文件夹oepn &amp;lt;dir&amp;gt; # 打开指定文件夹
-用指定（默认）程序打开目标文件因为Vim用的不熟练，有时候会需要用文本编辑器打开文件
-123open -a &amp;lt;editor&amp;gt; &amp;lt;file&amp;gt; # 用&amp;lt;editor&amp;gt;打开&amp;lt;file&amp;gt;open -e &amp;">
+<meta name="twitter:title" content="Python notes">
+<meta name="twitter:description" content="对Corpus (List of tokens)快速建立词频表
+
+1234collections.Counter(words).most_common(vocabulary_size - 1)# words: list of tokens# collections.Counter(words): Counter(&amp;#123;token: frequency ...&amp;#125;)# Counter">
 
 
 
@@ -120,10 +120,10 @@
 
 
 
-  <link rel="canonical" href="http://alanwang93.github.io/2016/10/27/zsh和iTerm2配置和一些shell命令/"/>
+  <link rel="canonical" href="http://alanwang93.github.io/2016/10/30/Python-notes/"/>
 
 
-  <title> zsh和iTerm2配置和一些shell命令 | WANG Yifan </title>
+  <title> Python notes | WANG Yifan </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -253,7 +253,7 @@
             
             
               
-                zsh和iTerm2配置和一些shell命令
+                Python notes
               
             
           </h1>
@@ -265,30 +265,11 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-27T20:53:39+02:00" content="2016-10-27">
-              2016-10-27
+            <time itemprop="dateCreated" datetime="2016-10-30T22:15:24+01:00" content="2016-10-30">
+              2016-10-30
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Others/" itemprop="url" rel="index">
-                    <span itemprop="name">Others</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
@@ -312,12 +293,21 @@
       
 
       
-        <h2 id="有用的一些shell命令"><a href="#有用的一些shell命令" class="headerlink" title="有用的一些shell命令"></a>有用的一些shell命令</h2><h5 id="用Finder打开当前文件夹（指定文件夹）"><a href="#用Finder打开当前文件夹（指定文件夹）" class="headerlink" title="用Finder打开当前文件夹（指定文件夹）"></a>用Finder打开当前文件夹（指定文件夹）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">open . # 打开当前文件夹</div><div class="line">oepn &lt;dir&gt; # 打开指定文件夹</div></pre></td></tr></table></figure>
-<h5 id="用指定（默认）程序打开目标文件"><a href="#用指定（默认）程序打开目标文件" class="headerlink" title="用指定（默认）程序打开目标文件"></a>用指定（默认）程序打开目标文件</h5><p>因为Vim用的不熟练，有时候会需要用文本编辑器打开文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">open -a &lt;editor&gt; &lt;file&gt; # 用&lt;editor&gt;打开&lt;file&gt;</div><div class="line">open -e &lt;file&gt; # 用文本编辑器打开文件</div><div class="line">open -t &lt;file&gt; # 用系统默认程序打开文件</div></pre></td></tr></table></figure>
-<h2 id="zsh和iTerm2配置"><a href="#zsh和iTerm2配置" class="headerlink" title="zsh和iTerm2配置"></a>zsh和iTerm2配置</h2><h5 id="不同Tab不共享命令历史"><a href="#不同Tab不共享命令历史" class="headerlink" title="不同Tab不共享命令历史"></a>不同Tab不共享命令历史</h5><p>默认情况下iTerm2会在不同tab间共享命令历史，要取消共享，在<code>.zshrc</code>中加入以下代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">unsetopt inc_append_history</div><div class="line">unsetopt share_history</div></pre></td></tr></table></figure>
-<h5 id="用Alias自定义命令"><a href="#用Alias自定义命令" class="headerlink" title="用Alias自定义命令"></a>用Alias自定义命令</h5>
+        <ol>
+<li>对Corpus (List of tokens)快速建立词频表</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">collections.Counter(words).most_common(vocabulary_size - <span class="number">1</span>)</div><div class="line"><span class="comment"># words: list of tokens</span></div><div class="line"><span class="comment"># collections.Counter(words): Counter(&#123;token: frequency ...&#125;)</span></div><div class="line"><span class="comment"># Counter.most_common(n): [(token, frequency)...] : n most frequent tokens</span></div></pre></td></tr></table></figure>
+<ol>
+<li>List 拼接</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a + b</div><div class="line">a.extend(b) <span class="comment"># equals to a = a + b</span></div></pre></td></tr></table></figure>
+<ol>
+<li>创建 reverse dictionary</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reverse_dictionary = dict(zip(dictionary.values(), dictionary.keys()))</div></pre></td></tr></table></figure>
+<p>以上几段代码来自Udacity Deep Learning course assignment 5, 具体如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">vocabulary_size = <span class="number">50000</span></div><div class="line"><span class="comment"># words: list of tokens</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_dataset</span><span class="params">(words)</span>:</span></div><div class="line">  <span class="comment"># UNK means "Unknown"</span></div><div class="line">  count = [[<span class="string">'UNK'</span>, <span class="number">-1</span>]]</div><div class="line">  count.extend(collections.Counter(words).most_common(vocabulary_size - <span class="number">1</span>)) </div><div class="line">  <span class="comment"># create token-freq pairs</span></div><div class="line">  dictionary = dict()</div><div class="line">  <span class="keyword">for</span> word, _ <span class="keyword">in</span> count:</div><div class="line">    dictionary[word] = len(dictionary) <span class="comment"># build index</span></div><div class="line">  data = list()</div><div class="line">  unk_count = <span class="number">0</span></div><div class="line">  <span class="keyword">for</span> word <span class="keyword">in</span> words:</div><div class="line">    <span class="keyword">if</span> word <span class="keyword">in</span> dictionary:</div><div class="line">      index = dictionary[word]</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">      index = <span class="number">0</span>  <span class="comment"># dictionary['UNK']</span></div><div class="line">      unk_count = unk_count + <span class="number">1</span></div><div class="line">    data.append(index) </div><div class="line">  count[<span class="number">0</span>][<span class="number">1</span>] = unk_count</div><div class="line">  reverse_dictionary = dict(zip(dictionary.values(), dictionary.keys())) </div><div class="line">  <span class="keyword">return</span> data, count, dictionary, reverse_dictionary</div><div class="line"><span class="comment"># data: documents as list of indexes</span></div><div class="line"><span class="comment"># count: List of (token, freq) pairs</span></div><div class="line"><span class="comment"># dictionary: &#123;token, index&#125;</span></div><div class="line"><span class="comment"># reverse_dictionary: &#123;index, token&#125;</span></div><div class="line">data, count, dictionary, reverse_dictionary = build_dataset(words)</div></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -337,25 +327,21 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/zsh/" rel="tag">#zsh</a>
-          
-            <a href="/tags/iTerm/" rel="tag">#iTerm</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/10/28/多层网络使用ReLu激活函数时Loss出现NaN的解决思路/" rel="next" title="多层网络使用ReLu激活函数时Loss出现NaN的解决思路">
+                <i class="fa fa-chevron-left"></i> 多层网络使用ReLu激活函数时Loss出现NaN的解决思路
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/10/28/多层网络使用ReLu激活函数时Loss出现NaN的解决思路/" rel="prev" title="多层网络使用ReLu激活函数时Loss出现NaN的解决思路">
-                多层网络使用ReLu激活函数时Loss出现NaN的解决思路 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/11/19/CS224d-notes-1-2-3/" rel="prev" title="CS224d notes - 1,2,3">
+                CS224d notes - 1,2,3 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -470,7 +456,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#有用的一些shell命令"><span class="nav-number">1.</span> <span class="nav-text">有用的一些shell命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#用Finder打开当前文件夹（指定文件夹）"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">用Finder打开当前文件夹（指定文件夹）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用指定（默认）程序打开目标文件"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">用指定（默认）程序打开目标文件</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zsh和iTerm2配置"><span class="nav-number">2.</span> <span class="nav-text">zsh和iTerm2配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#不同Tab不共享命令历史"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">不同Tab不共享命令历史</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用Alias自定义命令"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">用Alias自定义命令</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
