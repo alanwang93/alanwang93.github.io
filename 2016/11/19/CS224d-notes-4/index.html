@@ -84,31 +84,28 @@
 
 
 
-<meta name="description" content="Lecture 4 :Word Window Classification and Neural Networks
+<meta name="description" content="##Lecture 4 :Word Window Classification and Neural Networks
+
 Cross Entropy loss function for softmax:
 
-
-J(\theta) = \frac{1}{N}\sum_{i=1}^N - log(P(y_i|x)) \\
-\text{where } \widehat y_{y_i} = softmax(f_{">
+$$J(\theta) = \frac{1}{N}\sum_{i=1}^N - log(P(yi|x)) \\text{where } \widehat y{yi} = softmax(f{y_">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS224d notes (4)">
 <meta property="og:url" content="http://alanwang93.github.io/2016/11/19/CS224d-notes-4/index.html">
 <meta property="og:site_name" content="WANG Yifan">
-<meta property="og:description" content="Lecture 4 :Word Window Classification and Neural Networks
+<meta property="og:description" content="##Lecture 4 :Word Window Classification and Neural Networks
+
 Cross Entropy loss function for softmax:
 
-
-J(\theta) = \frac{1}{N}\sum_{i=1}^N - log(P(y_i|x)) \\
-\text{where } \widehat y_{y_i} = softmax(f_{">
+$$J(\theta) = \frac{1}{N}\sum_{i=1}^N - log(P(yi|x)) \\text{where } \widehat y{yi} = softmax(f{y_">
 <meta property="og:updated_time" content="2016-11-19T20:58:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS224d notes (4)">
-<meta name="twitter:description" content="Lecture 4 :Word Window Classification and Neural Networks
+<meta name="twitter:description" content="##Lecture 4 :Word Window Classification and Neural Networks
+
 Cross Entropy loss function for softmax:
 
-
-J(\theta) = \frac{1}{N}\sum_{i=1}^N - log(P(y_i|x)) \\
-\text{where } \widehat y_{y_i} = softmax(f_{">
+$$J(\theta) = \frac{1}{N}\sum_{i=1}^N - log(P(yi|x)) \\text{where } \widehat y{yi} = softmax(f{y_">
 
 
 
@@ -302,107 +299,50 @@ J(\theta) = \frac{1}{N}\sum_{i=1}^N - log(P(y_i|x)) \\
       
 
       
-        <h2 id="Lecture-4-Word-Window-Classification-and-Neural-Networks"><a href="#Lecture-4-Word-Window-Classification-and-Neural-Networks" class="headerlink" title="Lecture 4 :Word Window Classification and Neural Networks"></a>Lecture 4 :Word Window Classification and Neural Networks</h2><ul>
+        <p>##Lecture 4 :Word Window Classification and Neural Networks</p>
+<ul>
 <li><p>Cross Entropy loss function for softmax:</p>
 </li>
-<li><script type="math/tex; mode=display">
-J(\theta) = \frac{1}{N}\sum_{i=1}^N - log(P(y_i|x)) \\
-\text{where } \widehat y_{y_i} = softmax(f_{y_i}) =  P(y_i|x) = \frac{exp(W_{y_i}x)}{\sum_{c=1}^C exp(W_cx)} \\
-\text{and $W_y$ is a row(?) of $W$ that corresponds to $y$}</script></li>
+<li><p>$$<br>J(\theta) = \frac{1}{N}\sum_{i=1}^N - log(P(y<em>i|x)) \<br>\text{where } \widehat y</em>{y<em>i} = softmax(f</em>{y_i}) =  P(y<em>i|x) = \frac{exp(W</em>{y<em>i}x)}{\sum</em>{c=1}^C exp(W_cx)} \<br>\text{and $W_y$ is a row(?) of $W$ that corresponds to $y$}<br>$$</p>
+</li>
 <li><p>In most cases, the square error <strong>will not</strong> give good results</p>
 </li>
 <li><p>General ML parameters:</p>
 </li>
-<li><script type="math/tex; mode=display">
-\theta = \begin{matrix} 
-\left[
-  \begin{array}{c}
-  W_{.1} \\
-  \vdots \\
-  W_{.d}
- \end{array}
-\right]
-\end{matrix} \in \mathbb{R}^{Cd} \text{ where $C$ is the number of classes and $d$ is the dimension of input vectors}</script></li>
+<li><p>$$<br>\theta = \begin{matrix}<br>\left[<br>  \begin{array}{c}<br>  W<em>{.1} \<br>  \vdots \<br>  W</em>{.d}<br> \end{array}<br>\right]<br>\end{matrix} \in \mathbb{R}^{Cd} \text{ where $C$ is the number of classes and $d$ is the dimension of input vectors}<br>$$</p>
+</li>
 <li><p>In Deep Learning, we learn both W and word vectors x (update some pre-trained word vectors)</p>
 </li>
 <li><p>​</p>
 </li>
-<li><script type="math/tex; mode=display">
-\theta = \begin{matrix} 
-\left[
-  \begin{array}{c}
-  W_{.1} \\
-  \vdots \\
-  W_{.d} \\
-  W_{x_1} \\
-  \vdots \\
-  W_{x_V}
- \end{array}
-\right]
-\end{matrix} \in \mathbb{R}^{Cd + Vd}\\
-\text{ where $C$ is the number of classes, V is the number of tokens,}\\ \text{ $d$ is the dimension of input vectors}</script></li>
+<li><p>$$<br>\theta = \begin{matrix}<br>\left[<br>  \begin{array}{c}<br>  W<em>{.1} \<br>  \vdots \<br>  W</em>{.d} \<br>  W_{x<em>1} \<br>  \vdots \<br>  W</em>{x_V}<br> \end{array}<br>\right]<br>\end{matrix} \in \mathbb{R}^{Cd + Vd}\<br>\text{ where $C$ is the number of classes, V is the number of tokens,}\ \text{ $d$ is the dimension of input vectors}<br>$$</p>
+</li>
 <li><p>If the data set is very large, it might be helpful to update the vectors to the task, otherwise don’t do it.</p>
 </li>
 </ul>
 <h3 id="Word-vector-notation"><a href="#Word-vector-notation" class="headerlink" title="Word vector notation"></a>Word vector notation</h3><ul>
 <li><p>Lookup table: word vector matrix L</p>
 </li>
-<li><script type="math/tex; mode=display">
-L = [x_1, x_2 \ldots x_{|V|}] ~~\} ~d \\
-\text{Conceptually, to get the word vector(we don't do it): } x_i = Le_i</script></li>
+<li><p>$$<br>L = [x_1, x<em>2 \ldots x</em>{|V|}] ~~} ~d \<br>\text{Conceptually, to get the word vector(we don’t do it): } x_i = Le_i<br>$$</p>
+</li>
 </ul>
-<h3 id="Window-classification-NER"><a href="#Window-classification-NER" class="headerlink" title="Window classification (NER)"></a>Window classification (NER)</h3><p>In the example, we use a window of 5 words to predict the class of the center word. </p>
-<script type="math/tex; mode=display">
-\text{Let x be } x = \begin{matrix} 
-\left[
-  \begin{array}{c}
-  x_1 \\
-  x_2 \\
-  x_3 \\
-  x_4 \\
-  x_5 \\
- \end{array}
-\right]
-\end{matrix} \in \mathbb{R}^{5d} \text{ where $d$ is the dimension of input vectors} \\
-f = f(x) = Wx \in \mathbb{R}^C \\
-W \in \mathbb{R}^{C\times 5d}</script><p>The loss function is cross entropy error, and use softmax to predict. </p>
+<h3 id="Window-classification-NER"><a href="#Window-classification-NER" class="headerlink" title="Window classification (NER)"></a>Window classification (NER)</h3><p>In the example, we use a window of 5 words to predict the class of the center word.<br>$$<br>\text{Let x be } x = \begin{matrix}<br>\left[<br>  \begin{array}{c}<br>  x_1 \<br>  x_2 \<br>  x_3 \<br>  x_4 \<br>  x_5 \<br> \end{array}<br>\right]<br>\end{matrix} \in \mathbb{R}^{5d} \text{ where $d$ is the dimension of input vectors} \<br>f = f(x) = Wx \in \mathbb{R}^C \<br>W \in \mathbb{R}^{C\times 5d}<br>$$<br>The loss function is cross entropy error, and use softmax to predict. </p>
 <ul>
 <li><p>Update the concatenated word vectors</p>
-<p>​</p>
-<script type="math/tex; mode=display">
-\frac{\partial}{\partial x} -log(softmax(f_y(x))) = \sum_{c=1}^C - \frac{\partial log(softmax(f_y(x))}{\partial f_c(x)} \frac{\partial f_c(x)}{\partial x}</script></li>
+<p>​<br>$$<br>\frac{\partial}{\partial x} -log(softmax(f<em>y(x))) = \sum</em>{c=1}^C - \frac{\partial log(softmax(f_y(x))}{\partial f_c(x)} \frac{\partial f_c(x)}{\partial x}<br>$$</p>
+</li>
 <li><p>Write it in vector as a gradient</p>
 </li>
-<li><script type="math/tex; mode=display">
-  \frac{\partial}{\partial f} -log(softmax(f_y(x))) = 
-  \begin{matrix}
-  \left[
-    \begin{array}{c}
-  \widehat y_1 \\
-  \vdots \\
-  \widehat y_y - 1 \\
-  \vdots \\
-  \widehat y_C
-  \end{array}
-  \right]  = 
-  \end{matrix}
-  [\widehat y - t] = \delta \in \mathbb{R}^C</script></li>
+<li><p>$$<br>  \frac{\partial}{\partial f} -log(softmax(f_y(x))) =<br>  \begin{matrix}<br>  \left[</p>
+<pre><code>\begin{array}{c}
+</code></pre><p>  \widehat y_1 \<br>  \vdots \<br>  \widehat y_y - 1 \<br>  \vdots \<br>  \widehat y_C<br>  \end{array}<br>  \right]  =<br>  \end{matrix}<br>  [\widehat y - t] = \delta \in \mathbb{R}^C<br>$$</p>
+</li>
 <li><p>So we have a vectoriel version, notice that x is vecotr of the window</p>
 </li>
-<li><script type="math/tex; mode=display">
-  \nabla_xJ =  \sum_{c=1}^C - \frac{\partial log(softmax(f_y(x))}{\partial f_c(x)} \frac{\partial f_c(x)}{\partial x} = \sum_{c=1}^C \delta_cW_c^T = W^T\delta \in R^{5d} \\
-  \text{where } \delta_c = \delta_{window} \in R, ~ W_c \in R^{1\times 5d}
-  \\ \delta_{window} =\begin{matrix}
-  \left[
-    \begin{array}{c}
-  \nabla_{x_1} \\
-  \nabla_{x_2} \\
-  \nabla_{x_3} \\
-  \nabla_{x_4} \\
-  \nabla_{x_5} 
-  \end{array}
-  \right] 
-  \end{matrix}</script></li>
+<li><p>$$<br>  \nabla<em>xJ =  \sum</em>{c=1}^C - \frac{\partial log(softmax(f_y(x))}{\partial f_c(x)} \frac{\partial f<em>c(x)}{\partial x} = \sum</em>{c=1}^C \delta_cW_c^T = W^T\delta \in R^{5d} \<br>  \text{where } \delta<em>c = \delta</em>{window} \in R, ~ W<em>c \in R^{1\times 5d}<br>  \ \delta</em>{window} =\begin{matrix}<br>  \left[</p>
+<pre><code>\begin{array}{c}
+</code></pre><p>  \nabla_{x<em>1} \<br>  \nabla</em>{x<em>2} \<br>  \nabla</em>{x<em>3} \<br>  \nabla</em>{x<em>4} \<br>  \nabla</em>{x_5}<br>  \end{array}<br>  \right]<br>  \end{matrix}<br>$$</p>
+</li>
 <li><p>Add the gradient to the lookup table</p>
 </li>
 </ul>
@@ -555,7 +495,7 @@ W \in \mathbb{R}^{C\times 5d}</script><p>The loss function is cross entropy erro
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lecture-4-Word-Window-Classification-and-Neural-Networks"><span class="nav-number">1.</span> <span class="nav-text">Lecture 4 :Word Window Classification and Neural Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Word-vector-notation"><span class="nav-number">1.1.</span> <span class="nav-text">Word vector notation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Window-classification-NER"><span class="nav-number">1.2.</span> <span class="nav-text">Window classification (NER)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Problems-of-Softmax"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">Problems of Softmax</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Word-vector-notation"><span class="nav-number">1.</span> <span class="nav-text">Word vector notation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Window-classification-NER"><span class="nav-number">2.</span> <span class="nav-text">Window classification (NER)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Problems-of-Softmax"><span class="nav-number">2.0.1.</span> <span class="nav-text">Problems of Softmax</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -680,26 +620,6 @@ W \in \mathbb{R}^{C\times 5d}</script><p>The loss function is cross entropy erro
   
 
   
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-  </script>
-
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-      var all = MathJax.Hub.getAllJax(), i;
-      for (i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-      }
-    });
-  </script>
-  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
 
   
 
