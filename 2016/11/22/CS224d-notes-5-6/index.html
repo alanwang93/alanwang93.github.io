@@ -84,40 +84,25 @@
 
 
 
-<meta name="description" content="Lecture 2Word2Vec
-Objective function:
+<meta name="description" content="Lecture 5Max-margin objective function (window classification)For a single window
 
-
-J(\theta) = \frac{1}{T}\sum_{t=1}^T\sum_{-m\leq j \leq m,j\neq 0}log(p(w_{t+j}|w_t))
-With probabilities defined as:
-
-
-p(o|c) = \frac{exp(u^T_o v_c)}{\sum_{w=1}^">
+J = max(0,1-s+s_c) \\
+\text{where $s$ is the score of current sample and $s_c$ the score for corrupt(negative) sample">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CS224d notes (1,2,3)">
-<meta property="og:url" content="http://alanwang93.github.io/2016/11/19/CS224d-notes-1-2-3/index.html">
+<meta property="og:title" content="CS224d notes (5,6)">
+<meta property="og:url" content="http://alanwang93.github.io/2016/11/22/CS224d-notes-5-6/index.html">
 <meta property="og:site_name" content="WANG Yifan">
-<meta property="og:description" content="Lecture 2Word2Vec
-Objective function:
+<meta property="og:description" content="Lecture 5Max-margin objective function (window classification)For a single window
 
-
-J(\theta) = \frac{1}{T}\sum_{t=1}^T\sum_{-m\leq j \leq m,j\neq 0}log(p(w_{t+j}|w_t))
-With probabilities defined as:
-
-
-p(o|c) = \frac{exp(u^T_o v_c)}{\sum_{w=1}^">
-<meta property="og:updated_time" content="2016-11-21T23:00:41.000Z">
+J = max(0,1-s+s_c) \\
+\text{where $s$ is the score of current sample and $s_c$ the score for corrupt(negative) sample">
+<meta property="og:updated_time" content="2016-11-21T23:02:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CS224d notes (1,2,3)">
-<meta name="twitter:description" content="Lecture 2Word2Vec
-Objective function:
+<meta name="twitter:title" content="CS224d notes (5,6)">
+<meta name="twitter:description" content="Lecture 5Max-margin objective function (window classification)For a single window
 
-
-J(\theta) = \frac{1}{T}\sum_{t=1}^T\sum_{-m\leq j \leq m,j\neq 0}log(p(w_{t+j}|w_t))
-With probabilities defined as:
-
-
-p(o|c) = \frac{exp(u^T_o v_c)}{\sum_{w=1}^">
+J = max(0,1-s+s_c) \\
+\text{where $s$ is the score of current sample and $s_c$ the score for corrupt(negative) sample">
 
 
 
@@ -145,13 +130,13 @@ p(o|c) = \frac{exp(u^T_o v_c)}{\sum_{w=1}^">
 
 
 
-  <link rel="canonical" href="http://alanwang93.github.io/2016/11/19/CS224d-notes-1-2-3/"/>
+  <link rel="canonical" href="http://alanwang93.github.io/2016/11/22/CS224d-notes-5-6/"/>
 
 
 
 
 
-  <title> CS224d notes (1,2,3) | WANG Yifan </title>
+  <title> CS224d notes (5,6) | WANG Yifan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -262,7 +247,7 @@ p(o|c) = \frac{exp(u^T_o v_c)}{\sum_{w=1}^">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://alanwang93.github.io/2016/11/19/CS224d-notes-1-2-3/">
+  <link itemprop="mainEntityOfPage" href="http://alanwang93.github.io/2016/11/22/CS224d-notes-5-6/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="WANG Yifan">
@@ -286,7 +271,7 @@ p(o|c) = \frac{exp(u^T_o v_c)}{\sum_{w=1}^">
             
             
               
-                CS224d notes (1,2,3)
+                CS224d notes (5,6)
               
             
           </h1>
@@ -299,8 +284,8 @@ p(o|c) = \frac{exp(u^T_o v_c)}{\sum_{w=1}^">
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-19T21:07:26+01:00">
-                2016-11-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-22T00:00:01+01:00">
+                2016-11-22
               </time>
             
 
@@ -353,128 +338,140 @@ p(o|c) = \frac{exp(u^T_o v_c)}{\sum_{w=1}^">
       
 
       
-        <h2 id="Lecture-2"><a href="#Lecture-2" class="headerlink" title="Lecture 2"></a>Lecture 2</h2><h3 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h3><ul>
-<li><p>Objective function:</p>
-</li>
-<li><script type="math/tex; mode=display">
-J(\theta) = \frac{1}{T}\sum_{t=1}^T\sum_{-m\leq j \leq m,j\neq 0}log(p(w_{t+j}|w_t))</script></li>
-<li><p>With probabilities defined as:</p>
-</li>
-<li><script type="math/tex; mode=display">
-p(o|c) = \frac{exp(u^T_o v_c)}{\sum_{w=1}^W exp(u^T_w v_c)} \\
-\text{where } v_c \text{ as input vector for center word and } u \text{ as_o output vector (for tokens in the window), }\\ W \text{ is the number of tokens.}</script></li>
-<li><p>Two vectors (as input and output) for each word, in the end average them or concatenate them to get the word vector</p>
-</li>
-<li><p>Derivative</p>
-<ul>
-<li>​<script type="math/tex; mode=display">
-\frac{\partial x^Ta}{\partial x} = \frac{\partial a^Tx}{\partial x} = a \\
-x^Ta = \sum_i x_ia_i \ \text{, so we have } \frac{\partial x^Ta}{\partial x_i} =   a_i</script></li>
-</ul>
-</li>
-</ul>
-<h2 id="Lecture-3"><a href="#Lecture-3" class="headerlink" title="Lecture 3"></a>Lecture 3</h2><h3 id="Word2Vec-1"><a href="#Word2Vec-1" class="headerlink" title="Word2Vec"></a>Word2Vec</h3><ul>
-<li><p>Parameters:</p>
-</li>
-<li><script type="math/tex; mode=display">
-\theta = 
-\begin{matrix}       %开始数学环境
-\left[                 %左括号
-  \begin{array}{c}   %该矩阵一共3列，每一列都居中放置
-    v_1\\  %第一行元素
-    \vdots \\
-    v_V \\
-    u_1 \\
-    \vdots \\
-    u_V
-  \end{array}
-\right]                 %右括号
-\end{matrix}
-\in \mathbb{R}^{2dV}   ~~~~\text{ where } V \text{ is the number of tokens and  } d \text{ the demension of word vectors.}</script></li>
-<li><p>Optimization:</p>
-<ul>
-<li>Gradient Descente</li>
-<li>Stochatic Gradient Descente<ul>
-<li>sample some windows and calculate the gradient</li>
-<li>Problem: In each window, only have at most 2c-1(?) words, one vector for input and 2m vectors for outputs, really sparse.<ul>
-<li>solution: keep around hash for word vectors, or store it as 2 matrix U and V, each has columns of word vecotors and only update those that appear</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Initialization of parameters</p>
-<ul>
-<li>small numbers of some random distribution</li>
-</ul>
-</li>
-</ul>
-<h5 id="Skip-gram-model-and-negative-sampling"><a href="#Skip-gram-model-and-negative-sampling" class="headerlink" title="Skip-gram model and negative sampling"></a>Skip-gram model and negative sampling</h5><p>see “Distributed Representations of Words and Phrases and their Compositionality” (Mikolov et al. 2013)</p>
-<ul>
-<li>predict surrounding word vecotrs using the center word vector</li>
-</ul>
-<ul>
-<li><p>Problems: normalization term in probability term is two computationally complex (run over all the word vectors).</p>
-</li>
-<li><p>Objective function: (negative sampling: randomly pick k tokens that don’t appear in the window)</p>
-</li>
-<li><script type="math/tex; mode=display">
-J(\theta) = \frac{1}{T}\sum_{t=1}^T J_t(\theta) \\
-\text{with } J_t(\theta) = log~ \sigma(u_o^Tv_c) + \sum_{i=1}^k \mathbb{E}_{j \sim P(\omega)}[log~\sigma(u^T_jv_c)] \\
-\text{and } \sigma(x) = \frac{1}{1+e^{-x}}</script></li>
-<li><p>The indexes follow the unigram distribution, and the power lowers the frequency of frequent tokens</p>
-</li>
-<li><script type="math/tex; mode=display">
-j \sim U(w)^{\frac{3}{4}}</script></li>
-</ul>
-<h5 id="CBOW-model-Continous-Bag-Of-Words"><a href="#CBOW-model-Continous-Bag-Of-Words" class="headerlink" title="CBOW model (Continous Bag Of Words)"></a>CBOW model (Continous Bag Of Words)</h5><ul>
-<li>Main idea: predict the center word with the sum of surrounding word vectors</li>
-</ul>
-<h5 id="Comparaison-to-other-models-like-LSA"><a href="#Comparaison-to-other-models-like-LSA" class="headerlink" title="Comparaison to other models like LSA"></a>Comparaison to other models like LSA</h5><h5 id="GloVe"><a href="#GloVe" class="headerlink" title="GloVe"></a>GloVe</h5><p>“GloVe: Global Vectors for Word Representation” </p>
-<ul>
-<li><p>Use the global co-occurence statistics, <strong>fast training</strong>, scalable, <strong>good performence with small corpus</strong> and small vectors</p>
-</li>
-<li><p>Obective function</p>
-</li>
-<li><script type="math/tex; mode=display">
-J(\theta) = \frac{1}{2} \sum_{i,j=1}^W f(P_{ij})(u^T_iv_j - logP_{ij})^2 \\
-\text{where } f(x) \text{ is like: } f = \left\{  
-\begin{aligned}
- &x  \text{ if } ~ x <0.5\\ 
- &1 \text{ otherwise} \\
-\end{aligned}
-\right.</script></li>
-</ul>
-<h4 id="Evaluation-of-word-vector"><a href="#Evaluation-of-word-vector" class="headerlink" title="Evaluation of word vector"></a>Evaluation of word vector</h4><ul>
-<li><p>Intrinsic </p>
-<ul>
-<li><p>word vector analogies</p>
-<ul>
-<li><p><a href="http://code.google.com/p/word2vec/source/browse/trunk/questions-words.txt" target="_blank" rel="external">http://code.google.com/p/word2vec/source/browse/trunk/questions-words.txt</a></p>
-</li>
-<li><p>a:b :: c:d? </p>
+        <h2 id="Lecture-5"><a href="#Lecture-5" class="headerlink" title="Lecture 5"></a>Lecture 5</h2><h3 id="Max-margin-objective-function-window-classification"><a href="#Max-margin-objective-function-window-classification" class="headerlink" title="Max-margin objective function (window classification)"></a>Max-margin objective function (window classification)</h3><p>For a single window</p>
 <script type="math/tex; mode=display">
-d = arg\max_i \frac{(x_b-x_a+x_c)^Tx_i}{||x_b-x_a+x_c||}</script></li>
-<li><p>What if the relation is not linear?</p>
-</li>
+J = max(0,1-s+s_c) \\
+\text{where $s$ is the score of current sample and $s_c$ the score for corrupt(negative) sample}\\
+\text{we hope $s$ is big and $s_c$ is small} \\
+\text{when $s>s_c+1$, $J=0$, we can ignore the window, stop back propagation}</script><ul>
+<li>It means that positive sample has a score +1 higher than negative sample<ul>
+<li>xxx |&lt;=  1  =&gt;| ooo</li>
 </ul>
 </li>
-<li><p>Word similarity (based on human judgement)</p>
+<li>Advantage, stop back propagation when J becomes 0</li>
+</ul>
+<h4 id="Back-propagation-example"><a href="#Back-propagation-example" class="headerlink" title="Back propagation example"></a>Back propagation example</h4><script type="math/tex; mode=display">
+J = max(0,1-s+s_c) \\
+s = U^Tf(Wx+b) \\
+s_c = U^Tf(Wx_c+b)</script><p>Compute the derivatives with respect to U, W, b, x</p>
+<script type="math/tex; mode=display">
+\frac{\partial s}{\partial U} =  \frac{\partial U^Ta}{\partial U} = a = f(Wx+b)</script><p>… a lot more</p>
+<h2 id="Lecture-6"><a href="#Lecture-6" class="headerlink" title="Lecture 6"></a>Lecture 6</h2><h3 id="Neural-tips-amp-tricks"><a href="#Neural-tips-amp-tricks" class="headerlink" title="Neural tips &amp; tricks"></a>Neural tips &amp; tricks</h3><h4 id="Multi-task-learning-Weight-sharing"><a href="#Multi-task-learning-Weight-sharing" class="headerlink" title="Multi-task learning / Weight sharing"></a>Multi-task learning / Weight sharing</h4><p>see “NLP (almost) from scratch, Collobert et al. 2011”</p>
+<h4 id="Genetal-Strategy-for-Successful-NNets"><a href="#Genetal-Strategy-for-Successful-NNets" class="headerlink" title="Genetal Strategy for Successful NNets"></a>Genetal Strategy for Successful NNets</h4><ol>
+<li><p>Select appropriate network structure</p>
+<ol>
+<li><p>Single words, fixed window, sentence based, document level; bag of words, recursive vs. recurrent, CNN</p>
+</li>
+<li><p>Nonlinearity</p>
+<ol>
+<li><p>sigmoid (logistic): not good</p>
+<script type="math/tex; mode=display">
+f(z) = \frac{1}{1+exp(-z)} ~~~ f'(z) = f(z)(1-f(z))</script></li>
+<li><p>tanh: bet in many models</p>
+<script type="math/tex; mode=display">
+f(z) = tanh(z) = \frac{e^z - e^{-z}}{e^z+e^{-z}} ~~~ f'(z) = 1-f(z)^2 \\
+tanh(z) = 2logistic(2z)-1</script></li>
+<li><p>ReLu (rectified linear): avoid <strong>gradient vanishing</strong></p>
+<script type="math/tex; mode=display">
+rect(z) = max(z,0)</script></li>
+<li><p>Hard tanh</p>
+</li>
+<li><p>soft sign</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Gradient checks &amp; model simplification (一步一步implement)</p>
+</li>
+<li><p>Parameter Initialization</p>
+<ol>
+<li><p>If z if great, then the derivative could be close to 0 (e.g. for tanh)</p>
+</li>
+<li><p><strong>hidden bias</strong> initialized to 0</p>
+</li>
+<li><p><strong>output bias</strong> initialized to optimal value if weights were 0 (e.g. mean target or inverse sigmoid of mean target)</p>
+</li>
+<li><p>x between -1 and 1</p>
+</li>
+<li><p><strong>Weights</strong> W initialized to so that z is small enough to be on a linear regime. Initialized to ~ Uniform(-r, r), r inversely proportional to fan-in (previos layer size) and fan-out (next laeyer size): </p>
+<script type="math/tex; mode=display">
+\sqrt{6/(\text{fan-in} + \text{fan-out})}</script><p>for tanh and 4 times bigger for sigmoid (see Glorot AISTATS 2010)</p>
+</li>
+<li><p>For ReLu, to avoid getting 0, we can initialize the bias in the positive part of the value</p>
+</li>
+</ol>
+</li>
+<li><p>Mini-batch SGD (SGD updates after only 1 example while mimi-batch after a batch)</p>
+<script type="math/tex; mode=display">
+\theta^{new} = \theta^{old} - \alpha \nabla_{\theta}J_{t:t+B}(\theta)</script><ol>
+<li><p>size of batch: 20 to 1000</p>
+</li>
+<li><p>helps parallelizing</p>
+</li>
+<li><p><strong>Momentum</strong>: add a fraction v of previos update to current one, build up velocity in direction of consistent gradient</p>
+<script type="math/tex; mode=display">
+v = \mu v - \alpha \nabla_{\theta}J_t(\theta) \\
+\theta^{new} = \theta^{old} + v</script><ul>
+<li>v is initialized at 0</li>
+<li>common μ = 0.9</li>
+<li>momentum increased after some epochs (0.5 -&gt; 0.99)</li>
+</ul>
+</li>
+<li><p><strong>Learning Rates</strong> </p>
+<ol>
+<li><p>reduce by 0.5 when validation error stops improving</p>
+</li>
+<li><p><strong>Adagrad</strong>: adaptive learning rate for each parameter</p>
+<script type="math/tex; mode=display">
+g_{t,i} = \frac{\partial}{\partial \theta^t_i}J_t(\theta)\\
+\theta_{t-1,i} - \frac{\alpha}{\sqrt{\sum_{\tau=1}^t g_{\tau,i}^2}}g_{t,i}</script><p>Problem: with time going by, learning rate will be really small. Solution: reset the sum (or Adam)</p>
+</li>
+</ol>
+</li>
+<li><p>Regularize</p>
 <ul>
-<li>dataset: Wordsim353</li>
+<li>Reduce model size!</li>
+<li>L1, L2 regularization</li>
+<li>early stopping: use parameters that gave best validation error (keep wights for the last 50 iterations)</li>
+<li><strong>Dropout</strong> (Hinton et al. 2012) <ul>
+<li>Training time: at each instance of evaluation, randomly set 50% of the inputs to each neuron to 0.</li>
+<li>Test time: halve(减半) the model weights (now twice as many)</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>Extrinsic </p>
+<li><p>Y. Bengio (2012), “Pratical Recommendations for Gradient-Based Training of Deep Architectures”</p>
+<ol>
+<li>Hyperparameter search: set a range and random search  </li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="Language-Models"><a href="#Language-Models" class="headerlink" title="Language Models"></a>Language Models</h3><p>   Definition: a language model computes a probability for a sequence of words, often conditioned on a window of n previos words</p>
+<script type="math/tex; mode=display">
+   P(w_1, \ldots,w_m) = \prod_{i=1}^m P(w_i|w_1,\ldots,w_{i-1}) \sim\prod_{i=1}^m P(w_i|w_{i-(n-1)},\ldots,w_{i-1})</script><ul>
+<li><p>Original neural language model (A neural Probabilistic Language Model, Bengio et al. 2003)</p>
+<ul>
+<li><p>Problem: fixed window of context</p>
+<p>To solve the problem:</p>
 </li>
 </ul>
-<h5 id="Do-we-need-to-train-word-vectors-on-task-corpus-or-on-general-corpus"><a href="#Do-we-need-to-train-word-vectors-on-task-corpus-or-on-general-corpus" class="headerlink" title="Do we need to train word vectors on task corpus or on general corpus?"></a>Do we need to train word vectors on task corpus or on general corpus?</h5><h4 id="Ambiguity"><a href="#Ambiguity" class="headerlink" title="Ambiguity"></a>Ambiguity</h4><p>Improving Word Representations Via Global Context And Multiple Word Prototypes (Huang et al. 2012)</p>
-<p>A bad intrinsic evaluation result doesn’t result in a bad extrinsic evaluation result.</p>
-<h4 id="Hyperparameters"><a href="#Hyperparameters" class="headerlink" title="Hyperparameters"></a>Hyperparameters</h4><ul>
-<li>dimension of vectors: ~200 - 300</li>
-<li>window size: 4 - 6</li>
+</li>
+</ul>
+<h3 id="Recurrent-Neural-Networks"><a href="#Recurrent-Neural-Networks" class="headerlink" title="Recurrent Neural Networks"></a>Recurrent Neural Networks</h3><p>   Main idea: use the same set f W weights at all time steps</p>
+<script type="math/tex; mode=display">
+   h_t = \sigma(W^{(hh)}h_{t-1} + W^{(hx)}x[t]) \\
+   \hat y_t = softmax(W^{(S)}h_t) \\
+   \hat P(x_{t+1} = v_j|x_t,\ldots,x_1) = \hat y_{t,j }</script><ul>
+<li><p>initialization</p>
+<script type="math/tex; mode=display">
+h_0 \in \mathbb{R}^{D_h} \text{ vecotr for the hidden layer at step 0}, D_h \text{dimension of hidden layer} \\
+x[t] \text{ column vector of L at index [t] at step t} \\
+W^{(hh)} \in \mathbb{R}^{D_h\times D_h} ~~~ W^{(hx)}\in \mathbb{R}^{D_h \times d} ~~~ W^{(S)} \in \mathbb{R}^{|V| \times D_h}</script></li>
+<li><p>Training RNNs is hard: Vainishing or exploding gradient</p>
+</li>
 </ul>
 
       
@@ -514,8 +511,8 @@ d = arg\max_i \frac{(x_b-x_a+x_c)^Tx_i}{||x_b-x_a+x_c||}</script></li>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/30/Python-notes/" rel="next" title="Python notes">
-                <i class="fa fa-chevron-left"></i> Python notes
+              <a href="/2016/11/19/CS224d-notes-4/" rel="next" title="CS224d notes (4)">
+                <i class="fa fa-chevron-left"></i> CS224d notes (4)
               </a>
             
           </div>
@@ -523,10 +520,6 @@ d = arg\max_i \frac{(x_b-x_a+x_c)^Tx_i}{||x_b-x_a+x_c||}</script></li>
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/19/CS224d-notes-4/" rel="prev" title="CS224d notes (4)">
-                CS224d notes (4) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -646,7 +639,7 @@ d = arg\max_i \frac{(x_b-x_a+x_c)^Tx_i}{||x_b-x_a+x_c||}</script></li>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lecture-2"><span class="nav-number">1.</span> <span class="nav-text">Lecture 2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Word2Vec"><span class="nav-number">1.1.</span> <span class="nav-text">Word2Vec</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lecture-3"><span class="nav-number">2.</span> <span class="nav-text">Lecture 3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Word2Vec-1"><span class="nav-number">2.1.</span> <span class="nav-text">Word2Vec</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Skip-gram-model-and-negative-sampling"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">Skip-gram model and negative sampling</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CBOW-model-Continous-Bag-Of-Words"><span class="nav-number">2.1.0.2.</span> <span class="nav-text">CBOW model (Continous Bag Of Words)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Comparaison-to-other-models-like-LSA"><span class="nav-number">2.1.0.3.</span> <span class="nav-text">Comparaison to other models like LSA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GloVe"><span class="nav-number">2.1.0.4.</span> <span class="nav-text">GloVe</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Evaluation-of-word-vector"><span class="nav-number">2.1.1.</span> <span class="nav-text">Evaluation of word vector</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Do-we-need-to-train-word-vectors-on-task-corpus-or-on-general-corpus"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">Do we need to train word vectors on task corpus or on general corpus?</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ambiguity"><span class="nav-number">2.1.2.</span> <span class="nav-text">Ambiguity</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hyperparameters"><span class="nav-number">2.1.3.</span> <span class="nav-text">Hyperparameters</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lecture-5"><span class="nav-number">1.</span> <span class="nav-text">Lecture 5</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Max-margin-objective-function-window-classification"><span class="nav-number">1.1.</span> <span class="nav-text">Max-margin objective function (window classification)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Back-propagation-example"><span class="nav-number">1.1.1.</span> <span class="nav-text">Back propagation example</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lecture-6"><span class="nav-number">2.</span> <span class="nav-text">Lecture 6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Neural-tips-amp-tricks"><span class="nav-number">2.1.</span> <span class="nav-text">Neural tips & tricks</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Multi-task-learning-Weight-sharing"><span class="nav-number">2.1.1.</span> <span class="nav-text">Multi-task learning / Weight sharing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Genetal-Strategy-for-Successful-NNets"><span class="nav-number">2.1.2.</span> <span class="nav-text">Genetal Strategy for Successful NNets</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Language-Models"><span class="nav-number">2.2.</span> <span class="nav-text">Language Models</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Recurrent-Neural-Networks"><span class="nav-number">2.3.</span> <span class="nav-text">Recurrent Neural Networks</span></a></li></ol></li></ol></div>
             
 
           </div>
